@@ -26,7 +26,7 @@ Post.init(
         },
         comments: {
             type: DataTypes.TEXT,
-            allowNull: false,
+            allowNull: true,
             references: {
                 model: 'comment',
                 key: 'id',
