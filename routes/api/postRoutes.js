@@ -17,7 +17,7 @@ router.post('/', async (req,res) => {
             ...req.body,
             creator_id
         });
-
+        
         res.status(200).json({newPost, message: 'Your Post has been created!'});
 
     } catch (err) {
