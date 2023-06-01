@@ -1,23 +1,22 @@
 const router = require('express').Router();
 const { User } = require('../../models');
-const sendWelcomeEmail = require('../../utils/sendmail')
 
 //api/users endpoint
 router.post('/login', async (req, res) => {
   try {
-    const userData = await User.findOne({ where: { email: req.body.email } });
+    const userData = await User.findOne({ where: { username: req.body.username } });
     const validPassword = await userData.checkPassword(req.body.password);
 
     if (!userData || !validPassword) {
       res
         .status(403)
-        .json({ message: 'Incorrect email or password, please try again' });
+        .json({ message: 'Incorrect username or password, please try again' });
       return;
     }
 
     req.session.save(() => {
       req.session.user_id = userData.id;
-      req.session.user_fn = userData.first_name;
+      req.session.user_name = userData.username;
       req.session.logged_in = true;
       
       res.json({ user: userData, message: 'You are now logged in!' });

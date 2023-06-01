@@ -20,8 +20,8 @@ Comment.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        post: {
-            type: DataTypes.TEXT,
+        PostID: {
+            type: DataTypes.UUID,
             allowNull: false,
             references: {
                 model: 'post',

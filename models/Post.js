@@ -24,8 +24,8 @@ Post.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        comments: {
-            type: DataTypes.TEXT,
+        PComments: {
+            type: DataTypes.UUID,
             allowNull: true,
             references: {
                 model: 'comment',

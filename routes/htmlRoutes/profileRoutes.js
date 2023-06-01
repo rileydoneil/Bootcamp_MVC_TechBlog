@@ -3,20 +3,27 @@ const { User, Post, Comment } = require('../../models');
 
 // GET /profile
 
-router.get('/profile/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
-        const userData = await User.findByPk(req.params.id, {
-            include: [{model: Post}, {model: Comment}],
+        const postData = await Post.findAll({
+            include: [{model: User}, {model: Comment}],
+            where: {creator_id: req.params.id},
         });
-        const user = userData.get({plain: true});
+        if(!postData) {
+            res.status(405).json({message: 'No posts found!'});
+            return;
+        };
         if(req.params.id === req.session.user_id) {
-            user.is_current_user = true;
+            is_current_user = true;
         } else {
-            user.is_current_user = false;
+            is_current_user = false;
         }
-        res.render('profile', {
-            ...user,
-            is_current_user: user.is_current_user,
+        const posts = postData.map((post) => post.get({ plain: true }));
+
+        console.log(posts);
+        res.render('dashboard', {
+            posts,
+            is_current_user,
         });
     } catch (err) {
         res.status(500).json(err);
@@ -36,3 +43,4 @@ router.get('/', async (req, res) => {
     }
 });
 
+module.exports = router;
