@@ -1,7 +1,25 @@
-html{
+
+body{
+    background-color: #9089f5;
+}
+
+header{
     background-color: #212529;
 }
 
-body{
-    background-color: #212529;
+.post-card {
+    margin: 10px;
+
+}
+
+.feed {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.description {
+    background-color: #9089f5;
+    color: #212529;
+    border: 2px solid #212529;
+    text-decoration-thickness: 25%;
 }

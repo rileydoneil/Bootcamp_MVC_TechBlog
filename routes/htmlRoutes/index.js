@@ -50,7 +50,7 @@ router.get('/login', (req, res) => {
 
 router.get('/dashboard', async (req, res) => {
     try {
-        if(req.session.logged_in) {
+        if(true) { //req.session.logged_in
             const postData = await Post.findAll({
                 include: [{
                     model: User,
@@ -58,13 +58,12 @@ router.get('/dashboard', async (req, res) => {
                 {
                     model: Comment,
                 },
-            ],
+                ],
+                order: [[ 'createdAt', 'DESC' ]],
             });
             const showNav = true;
             const posts = postData.map((post) => post.get({ plain: true }));
-
-            console.log(posts);
-
+            
             res.render('dashboard', {
                 posts,
                 showNav,
