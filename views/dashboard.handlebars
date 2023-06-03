@@ -1,12 +1,17 @@
 <main class="mg-cus-nav">
 
     <section class="feed pe-auto">
+
         {{#each posts as |post|}}
-            <div class="post-card feed green-box m-5" id="{{recipe.id}}">
-                <h2>{{post.title}}</h2>
-                <p class="description">{{post.contents}}</p>
-                <p class="author"><a href="../profile/{{recipe.user.id}}">{{recipe.user.username}}</a> </p>
+        <div class="feed bg-dark text-white">
+            <div class="post-card d-flex p-2 justify-content-between" id="{{post.id}}">
+                <h3>{{post.title}}</h2>
+                <p class="author"><a href="../profile/{{post.user.id}}">Created by: {{post.user.username}}, on: {{post.createdAt}}</a></p>
             </div>
+            <div class="description d-flex p-2" >
+                <p id="{{post.id}}">{{post.contents}}</p>
+            </div>
+        </div>
         {{/each}}
     </section>
 </main>

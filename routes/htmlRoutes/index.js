@@ -1,9 +1,12 @@
 const router = require('express').Router();
 const {Post, Comment, User} = require('../../models');
 
-const postRoutes = require('./postRoutes');
+// const postRoutes = require('./postRoutes');
+const profileRoutes = require('./profileRoutes');
 
-router.use('/posts', postRoutes);
+router.use('/profile', profileRoutes);
+
+// router.use('/posts', postRoutes);
 
 router.get('/', async (req, res) => {
     try {
@@ -31,6 +34,20 @@ router.get('/signup', (req,res) => {
     }
 });
 
+// router login
+router.get('/login', (req, res) => {
+    try {
+        if(req.session.logged_in) {
+            res.redirect('/dashboard');
+            return;
+        } else {
+            res.render('login');
+        }
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
 router.get('/dashboard', async (req, res) => {
     try {
         if(req.session.logged_in) {
@@ -41,10 +58,16 @@ router.get('/dashboard', async (req, res) => {
                 {
                     model: Comment,
                 },
-            ],
-                
-            })
-            res.render('dashboard');
+                ],
+                order: [[ 'createdAt', 'DESC' ]],
+            });
+            const showNav = true;
+            const posts = postData.map((post) => post.get({ plain: true }));
+            
+            res.render('dashboard', {
+                posts,
+                showNav,
+            });
         } else {
             res.redirect('/login');
         }
@@ -53,6 +76,23 @@ router.get('/dashboard', async (req, res) => {
     }
         
 });
+
+router.get('/post/add', async (req, res) => {
+    try {
+        if(req.session.logged_in) {
+            const showNav = true;
+            res.render('add-post', {
+                showNav,
+            });
+        } else {
+            res.redirect('/login');
+        }
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+module.exports = router;
 
 
 //move loggedin as function?

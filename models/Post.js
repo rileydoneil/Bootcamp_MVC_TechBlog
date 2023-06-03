@@ -4,7 +4,9 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 // Initialize Recipe model (table) by extending off Sequelize's Model class
-class Post extends Model {}
+class Post extends Model {
+    
+}
 
 // set up fields and rules for Recipe model
 Post.init(
@@ -24,8 +26,8 @@ Post.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        comments: {
-            type: DataTypes.TEXT,
+        PComments: {
+            type: DataTypes.UUID,
             allowNull: true,
             references: {
                 model: 'comment',
@@ -38,6 +40,11 @@ Post.init(
                 model: 'user',
                 key: 'id',
             },
+        },
+        createdAt: {
+            type: DataTypes.DATEONLY,
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
         },
     },
     {

@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { Post } = require('../../models');
 
 router.get('/', async (req, res) => {
     try {
@@ -11,6 +12,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req,res) => {
     try {
+        console.log(JSON.stringify(req.body));
         //get Post creator_id
         const creator_id = req.session.user_id;
         const newPost = await Post.create({

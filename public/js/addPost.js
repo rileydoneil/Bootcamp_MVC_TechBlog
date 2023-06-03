@@ -6,8 +6,13 @@ addPostForm.addEventListener('submit', async (e) => {
 
     const formData = new FormData(addPostForm);
     const title = formData.get('title');
-    const content = formData.get('content');
-    const body = {title, content};
+    const contents = formData.get('content');
+    if(!title || !contents) {
+        alert('Please fill out all fields!');
+        return;
+    };
+    const body = {title, contents};
+    console.log(JSON.stringify(body));
 
     try {
         const res = await fetch('/api/posts', {
@@ -15,12 +20,12 @@ addPostForm.addEventListener('submit', async (e) => {
             body: JSON.stringify(body),
             headers: {'Content-Type': 'application/json'},
         });
-        const data = await res.json();
-        console.log(data);
+
         if(res.ok) {
-            successModal.classList.add('is-active');
+            successModal.classList.add('show');
+            successModal.style.display = 'block';
         } else {
-            alert(data.message);
+            alert('Failed to save Post!');
         }
     } catch (error) {
         console.error(error);
