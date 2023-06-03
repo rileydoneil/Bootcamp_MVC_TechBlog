@@ -50,7 +50,7 @@ router.get('/login', (req, res) => {
 
 router.get('/dashboard', async (req, res) => {
     try {
-        if(true) { //req.session.logged_in
+        if(req.session.logged_in) {
             const postData = await Post.findAll({
                 include: [{
                     model: User,

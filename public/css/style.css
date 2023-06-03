@@ -21,5 +21,6 @@ header{
     background-color: #9089f5;
     color: #212529;
     border: 2px solid #212529;
-    text-decoration-thickness: 25%;
+    font-weight: bolder;
+    font-size: large;
 }
