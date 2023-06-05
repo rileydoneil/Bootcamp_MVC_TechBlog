@@ -11,6 +11,17 @@
             <div class="description d-flex p-2" >
                 <p id="{{post.id}}">{{post.contents}}</p>
             </div>
+            {{#if currentUser}}
+                <div>
+                    <button class="btn btn-danger" id="deletePost" data-id="{{post.id}}">Delete Post</button>
+                </div>
+            {{/if}}
+            {{each post.comments as |comment|}}
+            <div>
+                <p class="comment" id="{{comment.id}}">{{comment.comment}}</p>
+                <p class="author"><a href="../profile/{{comment.user.id}}">Created by: {{comment.user.username}}, on: {{comment.createdAt}}</a></p>
+            </div>
+            {{/each}}                
         </div>
         {{/each}}
     </section>
