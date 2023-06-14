@@ -77,6 +77,46 @@ router.get('/dashboard', async (req, res) => {
         
 });
 
+//grab post by id and render post page
+router.get('/post/:id', async (req, res) => {
+    console.log(req.params.id);
+    try {  
+        const postData = await Post.findByPk(req.params.id, {
+            include: [{
+                model: User,
+            },
+            {
+                model: Comment,
+            },
+            ],
+        });
+        if(!postData) {
+            res.status(404).json({message: 'No post found with this id!'});
+            return;
+        };
+        if(req.session.user_id === postData.creator_id) {
+            is_current_user = true;
+        } else {
+            is_current_user = false;
+        }
+        const post = postData.get({ plain: true });
+        if(req.session.logged_in) {
+            showNav = true;
+        } else {
+            showNav = false;
+        }
+        console.log(postData);
+        res.render('post', {
+            post,
+            showNav,
+            is_current_user,
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+
 router.get('/post/add', async (req, res) => {
     try {
         if(req.session.logged_in) {

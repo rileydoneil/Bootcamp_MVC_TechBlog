@@ -4,6 +4,8 @@ const { User, Post, Comment } = require('../../models');
 // POST /api/comments
 router.post('/', async (req, res) => {
     try {
+        console.log('HERE IS THE REQ.BODY')
+        comsole.log(req.body);
         const commentData = await Comment.create({
             ...req.body,
             user_id: req.session.user_id,
