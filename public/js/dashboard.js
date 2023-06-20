@@ -13,6 +13,7 @@ document.querySelectorAll('.post-card').forEach((post) => {
 if(document.querySelector('.delete')) {
     document.querySelectorAll('.delete').forEach((button) => {
         button.addEventListener('click', async (e) => {
+            console.log('at delete btn');
             e.preventDefault();
             e.stopPropagation();
             const id = button.getAttribute('data-id');
@@ -44,16 +45,17 @@ if(document.querySelector('.commentInput')) {
             const postID = document.querySelector('.post-card').getAttribute('data-id');
             console.log('Post ID: ' + postID);
             const contents = document.querySelector(`.comment`).value;
-            console.log(comment);
+            const body = {contents, postID};
+            console.log(JSON.stringify(body));
             try {
                 const res = await fetch('/api/comments', {
                     method: 'POST',
-                    body: JSON.stringify({contents, postID}),
+                    body: JSON.stringify(body),
                     headers: {'Content-Type': 'application/json'},
                 });
                 if(res.ok) {
                     // window.location.replace(`/post/${postID}`);
-                    console.log('Comment added!');
+                    alert('Comment added!');
                 } else {
                     alert('Failed to add comment!');
                 }

@@ -20,7 +20,7 @@ Comment.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        PostID: {
+        postID: {
             type: DataTypes.UUID,
             allowNull: false,
             references: {
@@ -34,6 +34,11 @@ Comment.init(
                 model: 'user',
                 key: 'id',
             },
+        },
+        createdAt: {
+            type: DataTypes.DATEONLY,
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
         },
     },
     {
