@@ -11,6 +11,9 @@ class User extends Model {
     checkPassword(loginPw) {
         return bcrypt.compareSync(loginPw, this.password);
     }
+    getUserName() {
+        return this.username;
+    }
 }
 
 // set up fields and rules for User model
