@@ -40,3 +40,6 @@ packages used:
 - handlebars
 - bcrypt
 
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+
